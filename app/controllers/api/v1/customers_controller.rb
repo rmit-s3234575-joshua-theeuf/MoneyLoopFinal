@@ -4,7 +4,14 @@ class Api::V1::CustomersController < ApplicationController
     render json: {status: "Success", message: "Customer Details", data: customer}, status: :ok
   end
 
-  def new
+  def create
+    customer = Customer.new(customer_params)
+    #create a customer.
+    if customer.save
+      render json: {status: "Success", message: "Created", data:customer}, status: :ok
+    else
+      render json: {status: "failed", message: "failed to create object", data:customer.errors}, status: :unprocessable_entity
+    end
   end
 
   def show
