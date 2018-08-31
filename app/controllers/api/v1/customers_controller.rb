@@ -1,5 +1,7 @@
 class Api::V1::CustomersController < ApplicationController
   def index
+    customer = Customer.all
+    render json: {status: "Success", message: "Customer Details", data: customer}, status: :ok
   end
 
   def new
