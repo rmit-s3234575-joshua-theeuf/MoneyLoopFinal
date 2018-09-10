@@ -1,4 +1,4 @@
-class Api::V1::CompaniesController < ApplicationController
+class CompaniesController < ApplicationController
   def index
   end
 
