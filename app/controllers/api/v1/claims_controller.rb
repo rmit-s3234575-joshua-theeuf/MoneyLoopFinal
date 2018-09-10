@@ -17,10 +17,14 @@ class Api::V1::ClaimsController < ApplicationController
   def create
     claim  = Claim.new(claims_params)
     #create a claim.
-    if claim.save
-      render json: {status: "Success", message: "Created", data:claim}, status: :ok
+    if Customer.exists?(id: claim.customer_id)
+      if claim.save
+        render json: {status: "Success", message: "Created", data:claim}, status: :ok
+      else
+        render json: {status: "failed", message: "failed to create object", data:claim.errors}, status: :unprocessable_entity
+      end
     else
-      render json: {status: "failed", message: "failed to create object", data:claim.errors}, status: :unprocessable_entity
+      render json: {status: "failed", message: "Customer not found"}, status: :unprocessable_entity
     end
   end
 
