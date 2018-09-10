@@ -1,2 +1,0 @@
-class ClaimsController < ApplicationController
-end
