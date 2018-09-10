@@ -28,9 +28,26 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def destroy
+    begin
+      customer = Customer.find(params[:id])
+      customer.destroy
+      render json: {status: "Success", message: "Succesfully destroyed"}, status: :ok
+    rescue ActiveRecord::RecordNotFound => e
+      render json: {status: "failed", message: "failed to destroy object where id = #{params[:id]}"}, status: :unprocessable_entity
+    end
   end
 
-  def edit
+  def update
+    begin
+      customer = Customer.find(params[:id])
+      if customer.update_attributes(customer_params)
+        render json: {status: "Success", message: "updated", data:customer}, status: :ok
+      else
+        render json: {status: "failed", message: "failed to update", data:customer.errors}, status: :unprocessable_entity
+      end
+    rescue ActiveRecord::RecordNotFound => e
+      render json: {status: "failed", message: "failed to find object where id = #{params[:id]}"}, status: :unprocessable_entity
+    end
   end
 
   private
