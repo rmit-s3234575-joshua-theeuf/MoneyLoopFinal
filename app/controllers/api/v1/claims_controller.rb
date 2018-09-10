@@ -15,7 +15,7 @@ class Api::V1::ClaimsController < ApplicationController
   end
 
   def create
-    claim  = Claim.new(claim_params)
+    claim  = Claim.new(claims_params)
     #create a claim.
     if claim.save
       render json: {status: "Success", message: "Created", data:claim}, status: :ok
