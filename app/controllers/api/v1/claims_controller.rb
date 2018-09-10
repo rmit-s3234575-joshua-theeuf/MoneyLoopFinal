@@ -1,5 +1,5 @@
 class Api::V1::ClaimsController < ApplicationController
-    skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
   def index
     claim = Claim.all
     render json: {status: "Success", message: "Claim Details", data: claim}, status: :ok
@@ -17,14 +17,18 @@ class Api::V1::ClaimsController < ApplicationController
   def create
     claim  = Claim.new(claims_params)
     #create a claim.
-    if Customer.exists?(id: claim.customer_id)
-      if claim.save
-        render json: {status: "Success", message: "Created", data:claim}, status: :ok
+    if Company.exists?(id: claim.company_id)
+      if Customer.exists?(id: claim.customer_id)
+        if claim.save
+          render json: {status: "Success", message: "Created", data:claim}, status: :ok
+        else
+          render json: {status: "failed", message: "failed to create object", data:claim.errors}, status: :unprocessable_entity
+        end
       else
-        render json: {status: "failed", message: "failed to create object", data:claim.errors}, status: :unprocessable_entity
+        render json: {status: "failed", message: "Customer not found"}, status: :unprocessable_entity
       end
     else
-      render json: {status: "failed", message: "Customer not found"}, status: :unprocessable_entity
+      render json: {status: "failed", message: "Company not found"}, status: :unprocessable_entity
     end
   end
 
@@ -53,7 +57,7 @@ class Api::V1::ClaimsController < ApplicationController
 
   private
   def claims_params
-      params.permit(:company_id, :customer_id, :exposure, :date_of_origination, :credit_score)
+    params.permit(:company_id, :customer_id, :exposure, :date_of_origination, :credit_score)
   end
 
   #this is where we will intereact with the infrenetics credit model.
