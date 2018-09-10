@@ -1,4 +1,5 @@
 class Api::V1::ClaimsController < ApplicationController
+    skip_before_action :verify_authenticity_token
   def index
     claim = Claim.all
     render json: {status: "Success", message: "Claim Details", data: claim}, status: :ok
