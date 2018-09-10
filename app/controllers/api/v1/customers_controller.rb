@@ -16,6 +16,12 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def show
+    begin
+      customer = Customer.find(params[:id])
+      render json: {status: "Success", message: "loaded insureance details", data:customer}, status: :ok
+    rescue ActiveRecord::RecordNotFound => e
+      render json: {status: "Failed", message: "Object not found where id = #{params[:id]}"}, status: :unprocessable_entity
+    end
   end
 
   def update
