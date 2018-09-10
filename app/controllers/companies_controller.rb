@@ -12,13 +12,25 @@ class CompaniesController < ApplicationController
   end
 
   def show
-
+    begin
+      company = Company.find(params[:id])
+      render json: {status: "Success", message: "loaded insureance details", data:company}, status: :ok
+    rescue ActiveRecord::RecordNotFound => e
+      render json: {status: "Failed", message: "Object not found where id = #{params[:id]}"}, status: :unprocessable_entity
+    end
   end
 
   def update
   end
 
   def destroy
+    begin
+      company = Company.find(params[:id])
+      company.destroy
+      render json: {status: "Success", message: "Succesfully destroyed"}, status: :ok
+    rescue ActiveRecord::RecordNotFound => e
+      render json: {status: "failed", message: "failed to destroy object where id = #{params[:id]}"}, status: :unprocessable_entity
+    end
   end
 
   private
