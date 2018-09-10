@@ -45,7 +45,7 @@ class Api::V1::ClaimsController < ApplicationController
   def update
     begin
       claim = Claim.find(params[:id])
-      if claim.update_attributes(customer_params)
+      if claim.update_attributes(claims_params)
         render json: {status: "Success", message: "updated", data:claim}, status: :ok
       else
         render json: {status: "failed", message: "failed to update", data:claim.errors}, status: :unprocessable_entity
