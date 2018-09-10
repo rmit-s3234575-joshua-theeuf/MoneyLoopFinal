@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  resources :claims
   resources :companies
-
   resources :indices
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #define namespace for the customers api
@@ -10,6 +8,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       resources :customers
+      resources :claims
       get "/customers", to: 'customers#index'
       get "/customers(.:format)", to: 'customers#index'
       post "/customers(.:format)", to: 'customers#create'
