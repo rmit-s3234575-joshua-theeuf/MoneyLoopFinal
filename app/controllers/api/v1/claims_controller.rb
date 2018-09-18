@@ -81,7 +81,7 @@ class Api::V1::ClaimsController < ApplicationController
        "device_os"=>"windows", "device_model"=>"Samsung SM-G930F Galaxy S7", "device_screen_resolution"=>"412x732", "network_service_provider"=>"telstra", "ip_location"=> {"latitude"=>"-33.8145", "longitude"=>"151.0375"}, "time_zone"=>"+1000", "time_of_day"=>"23:52"}
     request["application/json"]
     request["authorization"]= "Token test_1825b34257c8398b035c110edd03b0911353c0d5155f7ee5d3738467b6"
-    request.body = maps.tojson
+    request.body = maps.to_json
         byebug
     res = http.request(request)
     puts res.body
