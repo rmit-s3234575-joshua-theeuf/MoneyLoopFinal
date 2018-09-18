@@ -74,7 +74,7 @@ class Api::V1::ClaimsController < ApplicationController
     hash.delete('created_at')
     hash.delete('updated_at')
     hash["exposure"] = claim.exposure
-    uri = URI.parse('http://api.inferentics.com/v1')
+    uri = URI.parse('https://api.inferentics.com/v1')
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Get.new(uri.request_uri)
     maps = {"exposure"=>'500', "given_names"=>"John", "surname"=>"Smith", "email"=>"john.smith@example.com", "phone_mobile"=>"+61400123123", "phone_home"=>"+61298001234", "dob"=>"01011900", "address"=>"Level 2 11 York St Sydney NSW 2000", "employer_name"=>"Test Company", "job_title"=>"job title", "device_type"=>"mobile",
