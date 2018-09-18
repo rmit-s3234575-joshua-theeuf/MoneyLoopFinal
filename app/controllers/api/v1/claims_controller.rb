@@ -59,7 +59,7 @@ class Api::V1::ClaimsController < ApplicationController
 
   private
   def claims_params
-    params.permit(:company_id, :customer_id, :exposure, :date_of_origination)
+    params.permit( :customer_id, :exposure, :date_of_origination)
   end
 
   #this is where we will intereact with the infrenetics credit model.
