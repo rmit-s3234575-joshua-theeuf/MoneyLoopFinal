@@ -7,8 +7,8 @@ class CompaniesController < ApplicationController
         company = Company.new(company_params)
         if company.save
           byebug
-          api_token = SecureRandom.hex(32)
-          test_token = SecureRandom.hex(32)
+          api_token = SecureRandom.hex(16)
+          test_token = SecureRandom.hex(16)
           ApiKey.create(token: api_token, service_provider_id: company.id)
           render json: {status: "Success", message: "Created", data:company}, status: :ok
         else
