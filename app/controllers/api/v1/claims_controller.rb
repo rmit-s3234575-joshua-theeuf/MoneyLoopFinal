@@ -70,6 +70,9 @@ class Api::V1::ClaimsController < ApplicationController
     byebug
     hash = JSON(customer.to_json)
     hash.delete("credit_score")
+    hash.delete('id')
+    hash.delete('created_at')
+    hash.delete('updated_at')
     hash["exposure"] = claim.exposure
 
     uri = URI('https://api.inferentics.com/v1')
