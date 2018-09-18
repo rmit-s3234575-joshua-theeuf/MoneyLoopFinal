@@ -21,7 +21,7 @@ class Api::V1::ClaimsController < ApplicationController
     customer = Customer.find_by(id: claims_params[:customer_id])
     #create a claim.
     if Company.exists?(id: claim.company_id)
-      if Customer.exists?(id: claim.customer_id) && customer.company_id == params[:company_id]
+      if Customer.exists?(id: claim.customer_id) && customer.company_id == claims_params[:company_id]
         claculate_credit_score(Customer.find_by(id: claim.customer_id))
         if claim.save
           render json: {status: "Success", message: "Created", data:claim}, status: :ok
@@ -74,7 +74,7 @@ class Api::V1::ClaimsController < ApplicationController
     authenticate_or_request_with_http_token do |token, options|
       byebug
       if ApiKey.exists?(:token => "#{token}")
-        claim_params[:company_id] = ApiKey.find_by(:token => "#{token}").service_provider_id
+        claims_params[:company_id] = ApiKey.find_by(:token => "#{token}").service_provider_id
       end
     end
   end
