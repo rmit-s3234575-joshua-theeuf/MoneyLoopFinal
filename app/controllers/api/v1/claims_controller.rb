@@ -17,7 +17,6 @@ class Api::V1::ClaimsController < ApplicationController
   end
 
   def create
-    byebug
     claim  = Claim.new(claims_params)
     claim.company_id = params[:company_id]
     customer = Customer.find_by(id: claims_params[:customer_id])
@@ -79,7 +78,6 @@ class Api::V1::ClaimsController < ApplicationController
 
   def restrict_access
     authenticate_or_request_with_http_token do |token, options|
-      byebug
       if ApiKey.exists?(:token => "#{token}")
         params[:company_id] = ApiKey.find_by(:token => "#{token}").service_provider_id
       end
