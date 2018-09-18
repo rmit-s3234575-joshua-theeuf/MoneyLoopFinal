@@ -57,9 +57,11 @@ class Api::V1::CustomersController < ApplicationController
   def restrict_access
     authenticate_or_request_with_http_token do |token, options|
       byebug
-      ApiKey.exists?(:token => "#{token}")
-      service_provider = ApiKey.find_by(:token => "#{token}").service_provider_id
+      if ApiKey.exists?(:token => "#{token}")
+        service_provider = ApiKey.find_by(:token => "#{token}").service_provider_id
+        return service_provider
+      end
     end
-    return service_provider
+
   end
 end
