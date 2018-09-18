@@ -71,7 +71,7 @@ class Api::V1::ClaimsController < ApplicationController
     byebug
     hash = JSON(customer.to_json)
     hash.delete("credit_score")
-    hash("exposure") = claim.exposure
+    hash["exposure"] = claim.exposure
 
     uri = URI('https://api.inferentics.com/v1')
     res = Net::HTTP::post_form(uri, hash )
