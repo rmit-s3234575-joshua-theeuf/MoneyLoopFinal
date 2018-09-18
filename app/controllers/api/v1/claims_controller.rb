@@ -75,15 +75,13 @@ class Api::V1::ClaimsController < ApplicationController
     hash.delete('updated_at')
     hash["exposure"] = claim.exposure
     uri = URI.parse('https://api.inferentics.com/v1')
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Get.new(uri.request_uri)
     maps = {"exposure"=>'500', "given_names"=>"John", "surname"=>"Smith", "email"=>"john.smith@example.com", "phone_mobile"=>"+61400123123", "phone_home"=>"+61298001234", "dob"=>"01011900", "address"=>"Level 2 11 York St Sydney NSW 2000", "employer_name"=>"Test Company", "job_title"=>"job title", "device_type"=>"mobile",
        "device_os"=>"windows", "device_model"=>"Samsung SM-G930F Galaxy S7", "device_screen_resolution"=>"412x732", "network_service_provider"=>"telstra", "ip_location"=> {"latitude"=>"-33.8145", "longitude"=>"151.0375"}, "time_zone"=>"+1000", "time_of_day"=>"23:52"}
     request["application/json"]
     request["authorization"]= "Token test_1825b34257c8398b035c110edd03b0911353c0d5155f7ee5d3738467b6"
-    request.body = maps.to_json
+    request.body = maps
         byebug
-    res = http.request(request)
+    res = Net::HTTP.post_form(uri,maps)
     puts res.body
   end
 
