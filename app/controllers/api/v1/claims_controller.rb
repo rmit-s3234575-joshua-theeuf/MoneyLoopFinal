@@ -18,7 +18,7 @@ class Api::V1::ClaimsController < ApplicationController
   def create
     byebug
     claim  = Claim.new(claims_params)
-    customer = Customer.find_by(id: claim_params[:customer_id])
+    customer = Customer.find_by(id: claims_params[:customer_id])
     #create a claim.
     if Company.exists?(id: claim.company_id)
       if Customer.exists?(id: claim.customer_id) && customer.company_id == params[:company_id]
