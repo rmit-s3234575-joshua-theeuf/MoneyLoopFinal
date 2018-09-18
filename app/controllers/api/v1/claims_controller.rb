@@ -16,6 +16,7 @@ class Api::V1::ClaimsController < ApplicationController
   end
 
   def create
+    byebug
     claim  = Claim.new(claims_params)
     customer = Customer.find_by(id: params[:customer_id])
     #create a claim.
