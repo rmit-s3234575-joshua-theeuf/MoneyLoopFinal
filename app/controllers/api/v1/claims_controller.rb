@@ -62,7 +62,7 @@ class Api::V1::ClaimsController < ApplicationController
   end
 
   #this is where we will intereact with the infrenetics credit model.
-  def claculate_credit_score
+  def claculate_credit_score(customer_id)
     byebug
 
   end
