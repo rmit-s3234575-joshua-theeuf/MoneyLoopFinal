@@ -77,7 +77,7 @@ class Api::V1::ClaimsController < ApplicationController
 
     uri = URI('https://api.inferentics.com/v1')
     res = Net::HTTP::post_form(uri, hash )
-    res
+    puts res.body
   end
 
   def restrict_access
