@@ -9,6 +9,8 @@ class Api::V1::CustomersController < ApplicationController
   def create
     customer = Customer.new(customer_params)
     #create a customer.
+    byebug
+    customer.company_id = ApiKey.find_by(token: params[token]).service_provider_id
     if customer.save
       render json: {status: "Success", message: "Created", data:customer}, status: :ok
     else
