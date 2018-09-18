@@ -60,5 +60,6 @@ class Api::V1::CustomersController < ApplicationController
       ApiKey.exists?(:token => "#{token}")
       service_provider = ApiKey.find_by(:token => "#{token}").service_provider_id
     end
+    return service_provider
   end
 end
