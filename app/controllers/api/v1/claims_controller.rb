@@ -63,4 +63,10 @@ class Api::V1::ClaimsController < ApplicationController
   #this is where we will intereact with the infrenetics credit model.
   def claculate_credit_score
   end
+
+  def restrict_access
+    authenticate_or_request_with_http_token do |token, options|
+      ApiKey.exists?(:token => '#{token}')
+    end
+  end
 end
