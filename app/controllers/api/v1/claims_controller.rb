@@ -16,9 +16,10 @@ class Api::V1::ClaimsController < ApplicationController
 
   def create
     claim  = Claim.new(claims_params)
+    customer = Customer.find_by(id: params[:customer_id])
     #create a claim.
     if Company.exists?(id: claim.company_id)
-      if Customer.exists?(id: claim.customer_id)
+      if Customer.exists?(id: claim.customer_id) && customer.company_id == params[:company_id]
         claculate_credit_score(Customer.find_by(id: claim.customer_id))
         if claim.save
           render json: {status: "Success", message: "Created", data:claim}, status: :ok
