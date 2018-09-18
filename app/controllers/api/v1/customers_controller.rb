@@ -60,6 +60,9 @@ class Api::V1::CustomersController < ApplicationController
         params[:company_id] = ApiKey.find_by(:token => "#{token}").service_provider_id
       end
     end
+  end
+  #this is where we will intereact with the infrenetics credit model.
+  def claculate_credit_score
 
   end
 end

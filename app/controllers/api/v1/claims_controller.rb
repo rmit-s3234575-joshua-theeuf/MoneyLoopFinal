@@ -60,13 +60,12 @@ class Api::V1::ClaimsController < ApplicationController
     params.permit(:company_id, :customer_id, :exposure, :date_of_origination, :credit_score)
   end
 
-  #this is where we will intereact with the infrenetics credit model.
-  def claculate_credit_score
-  end
-
   def restrict_access
     authenticate_or_request_with_http_token do |token, options|
-      ApiKey.exists?(:token => '#{token}')
+      byebug
+      if ApiKey.exists?(:token => "#{token}")
+        params[:company_id] = ApiKey.find_by(:token => "#{token}").service_provider_id
+      end
     end
   end
 end
