@@ -69,9 +69,12 @@ class Api::V1::ClaimsController < ApplicationController
   #this is where we will intereact with the infrenetics credit model.
   def claculate_credit_score(customer, claim)
     byebug
-    customer.to_json
-    #uri = URI('https://api.inferentics.com/v1')
-    #res = Net::HTTP::post_form(uri, 'given_names' => customer.given_names, 'surname'=>customer.surname, "email" => )
+    hash = JSON(customer.to_json)
+    hash.delete("credit_score")
+    hash("exposure") = claim.exposure
+
+    uri = URI('https://api.inferentics.com/v1')
+    res = Net::HTTP::post_form(uri, hash )
   end
 
   def restrict_access
