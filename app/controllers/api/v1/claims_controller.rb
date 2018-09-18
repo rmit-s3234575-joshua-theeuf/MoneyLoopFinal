@@ -1,4 +1,5 @@
 class Api::V1::ClaimsController < ApplicationController
+  require 'net/http'
   skip_before_action :verify_authenticity_token
   before_action :restrict_access
   def index
@@ -23,7 +24,7 @@ class Api::V1::ClaimsController < ApplicationController
     #create a claim.
     if Company.exists?(id: claim.company_id)
       if Customer.exists?(id: claim.customer_id) && customer.company_id == params[:company_id]
-        claculate_credit_score(Customer.find_by(id: claim.customer_id))
+        claculate_credit_score(Customer.find_by(id: claim.customer_id), claim)
         if claim.save
           render json: {status: "Success", message: "Created", data:claim}, status: :ok
         else
@@ -66,9 +67,11 @@ class Api::V1::ClaimsController < ApplicationController
   end
 
   #this is where we will intereact with the infrenetics credit model.
-  def claculate_credit_score(customer_id)
+  def claculate_credit_score(customer, claim)
     byebug
-
+    customer.to_json
+    #uri = URI('https://api.inferentics.com/v1')
+    #res = Net::HTTP::post_form(uri, 'given_names' => customer.given_names, 'surname'=>customer.surname, "email" => )
   end
 
   def restrict_access
