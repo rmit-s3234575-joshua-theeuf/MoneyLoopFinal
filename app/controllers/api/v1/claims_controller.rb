@@ -19,6 +19,7 @@ class Api::V1::ClaimsController < ApplicationController
     #create a claim.
     if Company.exists?(id: claim.company_id)
       if Customer.exists?(id: claim.customer_id)
+        claculate_credit_score(Customer.find_by(id: claim.customer_id))
         if claim.save
           render json: {status: "Success", message: "Created", data:claim}, status: :ok
         else
@@ -57,7 +58,13 @@ class Api::V1::ClaimsController < ApplicationController
 
   private
   def claims_params
-    params.permit(:company_id, :customer_id, :exposure, :date_of_origination, :credit_score)
+    params.permit(:company_id, :customer_id, :exposure, :date_of_origination)
+  end
+
+  #this is where we will intereact with the infrenetics credit model.
+  def claculate_credit_score
+    byebug
+
   end
 
   def restrict_access
