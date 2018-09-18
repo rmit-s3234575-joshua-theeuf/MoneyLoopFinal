@@ -76,8 +76,10 @@ class Api::V1::ClaimsController < ApplicationController
     hash["exposure"] = claim.exposure
     hash['head']
     uri = URI.parse('https://api.inferentics.com/v1')
-    http = Net::HTTP.new(uri.host,uri.port)
-    request = Net::HTTP.new(uri.request_uri)
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+    request["User-Agent"] = "My Ruby Script"
+    request["Accept"] = "*/*"
     request["authorization"]= "Token test_1825b34257c8398b035c110edd03b0911353c0d5155f7ee5d3738467b6"
     res = http.request(request)
     puts res.body
