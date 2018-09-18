@@ -10,7 +10,6 @@ class Api::V1::CustomersController < ApplicationController
     customer = Customer.new(customer_params)
     #create a customer.
     byebug
-    customer.company_id = ApiKey.find_by(token: params[token]).service_provider_id
     if customer.save
       render json: {status: "Success", message: "Created", data:customer}, status: :ok
     else
@@ -58,7 +57,7 @@ class Api::V1::CustomersController < ApplicationController
     authenticate_or_request_with_http_token do |token, options|
       byebug
       if ApiKey.exists?(:token => "#{token}")
-        params[:service_provider] = ApiKey.find_by(:token => "#{token}").service_provider_id
+        params[:company_id] = ApiKey.find_by(:token => "#{token}").service_provider_id
       end
     end
 
