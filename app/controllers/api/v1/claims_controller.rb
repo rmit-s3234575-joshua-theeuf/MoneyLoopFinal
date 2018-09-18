@@ -80,7 +80,7 @@ class Api::V1::ClaimsController < ApplicationController
     request = Net::HTTP::Get.new(uri.request_uri)
     request["application/json"]
     request["authorization"]= "Token test_1825b34257c8398b035c110edd03b0911353c0d5155f7ee5d3738467b6"
-    request["body"] = hash
+    request.set_form_data(hash)
     res = http.request(request)
     puts res.body
   end
