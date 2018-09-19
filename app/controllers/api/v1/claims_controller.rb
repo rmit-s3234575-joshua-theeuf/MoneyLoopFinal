@@ -1,5 +1,7 @@
 class Api::V1::ClaimsController < ApplicationController
   require 'net/http'
+  require 'uri'
+  require 'json'
   skip_before_action :verify_authenticity_token
   before_action :restrict_access
   def index
@@ -67,27 +69,51 @@ class Api::V1::ClaimsController < ApplicationController
 
   #this is where we will intereact with the infrenetics credit model.
   def claculate_credit_score(customer, claim)
+    uri = URI.parse("https://api.inferentics.com/v1")
+    request = Net::HTTP::Post.new(uri)
+    request.content_type = "application/json"
+    request["Authorization"] = "Token test_1825b34257c8398b035c110edd03b0911353c0d5155f7ee5d3738467b6"
+    request.body = JSON.dump({
+      "exposure" => 500,
+      "given_names" => "John",
+      "surname" => "Smith",
+      "email" => "john.smith@example.com",
+      "phone_mobile" => "+61400123123",
+      "phone_home" => "+61298001234",
+      "dob" => "01011900",
+      "address" => "Level 2 11 York St Sydney NSW 2000",
+      "employer_name" => "Test Company",
+      "job_title" => "job title",
+      "device_type" => "mobile",
+      "device_os" => "windows",
+      "device_model" => "Samsung SM-G930F Galaxy S7",
+      "device_screen_resolution" => "412x732",
+      "network_service_provider" => "telstra",
+      "ip_location" => {
+        "latitude" => "-33.8145",
+        "longitude" => "151.0375"
+      },
+      "time_zone" => "+1000",
+      "time_of_day" => "23:52"
+      })
 
-    hash = JSON(customer.to_json)
-    hash.delete("credit_score")
-    hash.delete('id')
-    hash.delete('created_at')
-    hash.delete('updated_at')
-    hash["exposure"] = claim.exposure
-    uri = URI('https://api.inferentics.com/v1')
-    Net::HTTP.start(uri.host, uri.port,
-    :use_ssl=>uri.scheme == 'https') do |http|
-      request = Net::Http::Post(uri, "Authorization: Token test_1825b34257c8398b035c110edd03b0911353c0d5155f7ee5d3738467b6" -H "Content-Type: application/json" -d '{"exposure":500, "given_names":"John", "surname":"Smith", "email":"john.smith@example.com", "phone_mobile":"+61400123123", "phone_home":"+61298001234", "dob":"01011900", "address":"Level 2 11 York St Sydney NSW 2000", "employer_name":"Test Company", "job_title":"job title", "device_type":"mobile", "device_os":"windows", "device_model":"Samsung SM-G930F Galaxy S7", "device_screen_resolution":"412x732", "network_service_provider":"telstra", "ip_location": {"latitude":"-33.8145", "longitude":"151.0375"}, "time_zone":"+1000", "time_of_day":"23:52"}' )
-    res = http.request request
-  end
-    puts res.body
-  end
+      req_options = {
+        use_ssl: uri.scheme == "https",
+      }
+      byebu
+      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
+      end
 
-  def restrict_access
-    authenticate_or_request_with_http_token do |token, options|
-      if ApiKey.exists?(:token => "#{token}")
-        params[:company_id] = ApiKey.find_by(:token => "#{token}").service_provider_id
+      response.code
+      response.body
+    end
+
+    def restrict_access
+      authenticate_or_request_with_http_token do |token, options|
+        if ApiKey.exists?(:token => "#{token}")
+          params[:company_id] = ApiKey.find_by(:token => "#{token}").service_provider_id
+        end
       end
     end
   end
-end
