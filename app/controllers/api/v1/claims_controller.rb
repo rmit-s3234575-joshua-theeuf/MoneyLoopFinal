@@ -80,7 +80,7 @@ class Api::V1::ClaimsController < ApplicationController
       "email" => "#{customer.email}",
       "phone_mobile" => "#{customer.phone_mobile}",
       "phone_home" => "#{customer.phone_home}",
-      "dob" => "#{customer.dob.to_date.strftime("%D%M%Y")}",
+      "dob" => "#{customer.dob.to_date.strftime("%d%m%Y")}",
       "address" => "#{customer.address}",
       "employer_name" => "#{customer.employer_name}",
       "job_title" => "#{customer.job_title}",
