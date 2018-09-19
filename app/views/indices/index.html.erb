@@ -25,7 +25,7 @@ $('#form-id').submit(function() {
         type: "POST",
         url: $(this).attr('action'),
         data: valuesToSubmit,
-        headers: {'token': '4b1ce14e683240d12cf913633ddfe143'}
+        headers: {'Authorization': 'Token 4b1ce14e683240d12cf913633ddfe143'}
     }).success(function(response){
         //success code
     });
