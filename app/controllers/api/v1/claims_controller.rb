@@ -100,7 +100,7 @@ class Api::V1::ClaimsController < ApplicationController
       req_options = {
         use_ssl: uri.scheme == "https",
       }
-      byebu
+      byebug
       response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
         http.request(request)
       end
