@@ -77,7 +77,7 @@ class Api::V1::ClaimsController < ApplicationController
       "exposure" => claim.exposure,
       "given_names" => "#{customer.given_names}",
       "surname" => "#{customer.surname}",
-      "email" => "#{customer.contact_email}",
+      "email" => "#{customer.email}",
       "phone_mobile" => "#{customer.phone_mobile}",
       "phone_home" => "#{customer.phone_home}",
       "dob" => "#{customer.dob}",
