@@ -7,7 +7,7 @@ class Customer < ApplicationRecord
       self.email.downcase!
       self.phone_home.downcase!
       self.phone_mobile.downcase!
-      self.dob.to_date.strftime("%d%m%Y")!
+      self.dob= self.dob.to_date.strftime("%d%m%Y")
       self.address.downcase!
       self.employer_name.downcase!
       self.job_title.downcase!
