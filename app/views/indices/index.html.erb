@@ -18,6 +18,13 @@
   <input type="submit">
 </form>
 
+<form method="POST"id="form-claim"action="http://ec2-13-211-1-79.ap-southeast-2.compute.amazonaws.com/api/v1/claims">
+  <input type ="text" name="customer_id" placeholder="customer id"><br>
+  <input type="text" name="exposure" placeholder="exposure"><br>
+  <input type="date" name ="date_of_origination" placeholder="<%=Date.today() %>"><br>
+  <input type="submit">
+</form>
+
 <script>
 $('#form-id').submit(function() {
     var valuesToSubmit = $(this).serialize();
@@ -31,11 +38,17 @@ $('#form-id').submit(function() {
     });
     return false;
 });
-</script>
 
-<form method="POST"id="form-id"action="http://ec2-13-211-1-79.ap-southeast-2.compute.amazonaws.com/api/v1/customers">
-  <input type ="text" name="customer_id" placeholder="customer id"><br>
-  <input type="text" name="exposure" placeholder="exposure"><br>
-  <input type="date" name ="date_of_origination" placeholder="<%=Date.today() %>"><br>
-  <input type="submit">
-</form>
+$('#form-claim').submit(function() {
+    var valuesToSubmit = $(this).serialize();
+    $.ajax({
+        type: "POST",
+        url: $(this).attr('action'),
+        data: valuesToSubmit,
+        headers: {'Authorization': 'Token 4b1ce14e683240d12cf913633ddfe143'}
+    }).success(function(response){
+        //success code
+    });
+    return false;
+});
+</script>
