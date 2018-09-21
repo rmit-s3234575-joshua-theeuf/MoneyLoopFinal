@@ -9,6 +9,7 @@ class Api::V1::CustomersController < ApplicationController
   def create
     customer = Customer.new(customer_params)
     #create a customer.
+    customer.dob = customer_params[:dob].strftime("%d%m%Y")
     byebug
     if customer.save
       render json: {status: "Success", message: "Created", data:customer}, status: :ok
