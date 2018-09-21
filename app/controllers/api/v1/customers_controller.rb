@@ -9,7 +9,7 @@ class Api::V1::CustomersController < ApplicationController
   def create
     customer = Customer.new(customer_params)
     #create a customer.
-    customer.dob = customer_params[:dob].strftime("%d%m%Y")
+    customer.dob = customer_params[:dob].to_date.strftime("%d%m%Y")
     byebug
     if customer.save
       render json: {status: "Success", message: "Created", data:customer}, status: :ok
@@ -56,7 +56,6 @@ class Api::V1::CustomersController < ApplicationController
   end
   def restrict_access
     authenticate_or_request_with_http_token do |token, options|
-      byebug
       if ApiKey.exists?(:token => "#{token}")
         params[:company_id] = ApiKey.find_by(:token => "#{token}").service_provider_id
       end
