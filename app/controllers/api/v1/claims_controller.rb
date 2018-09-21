@@ -27,7 +27,7 @@ class Api::V1::ClaimsController < ApplicationController
       if Customer.exists?(id: claim.customer_id) && customer.company_id == params[:company_id]
         claculate_credit_score(Customer.find_by(id: claim.customer_id), claim)
         if claim.save
-          render json: {status: "Success", message: "Created", data:claim, customer}, status: :ok
+          render json: {status: "Success", message: "Created", data:claim}, status: :ok
         else
           render json: {status: "failed", message: "failed to create object", data:claim.errors}, status: :unprocessable_entity
         end
