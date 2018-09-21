@@ -104,7 +104,6 @@ class Api::V1::ClaimsController < ApplicationController
       response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
         http.request(request)
       end
-byebug
       response.code
       response.body
       credit_score = JSON.parse(response.body)
