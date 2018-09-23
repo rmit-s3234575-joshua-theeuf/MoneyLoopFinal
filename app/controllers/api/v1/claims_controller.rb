@@ -23,6 +23,7 @@ class Api::V1::ClaimsController < ApplicationController
     claim.company_id = params[:company_id]
     customer = Customer.find_by(id: claims_params[:customer_id])
     #create a claim.
+    byebug
     if Company.exists?(id: claim.company_id)
       if Customer.exists?(id: claim.customer_id) && customer.company_id == params[:company_id]
         claculate_credit_score(Customer.find_by(id: claim.customer_id), claim)
