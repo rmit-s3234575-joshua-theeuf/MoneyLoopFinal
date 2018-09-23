@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       delete "/customers/:id(.:format)", to: 'customers#destroy'
     end
   end
-  get "/indices/:id(.:format)", to: "indices#create_claim"
+  get "/indices/claim/:id(.:format)", to: "indices#create_claim"
 
   root "indices#index"
 end
