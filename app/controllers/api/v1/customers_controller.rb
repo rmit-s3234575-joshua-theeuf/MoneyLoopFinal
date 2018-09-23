@@ -7,6 +7,7 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def create
+    byebug
     customer = Customer.new(customer_params)
     #create a customer.
     customer.update(dob:customer_params[:dob].to_date.strftime("%d%m%Y"))
