@@ -1,5 +1,4 @@
 <form method="POST"id="form-claim"action="http://ec2-13-211-1-79.ap-southeast-2.compute.amazonaws.com/api/v1/claims">
-<%byebug%>
   <input type ="hidden" name="customer_id" placeholder="customer id" value="<%=Customer.find_by(id: params[:id]).id %>"><br>
   <input type="text" name="exposure" placeholder="exposure"><br>
   <input type="date" name ="date_of_origination" placeholder="<%=Date.today() %>"><br>
