@@ -107,6 +107,7 @@ class Api::V1::ClaimsController < ApplicationController
       end
       response.code
       response.body
+      byebug
       credit_score = JSON.parse(response.body)
       customer.update(credit_score: credit_score["result"])
 
