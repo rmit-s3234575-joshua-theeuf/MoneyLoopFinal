@@ -109,8 +109,9 @@ class Api::V1::ClaimsController < ApplicationController
       response.body
       byebug
       credit_score = JSON.parse(response.body)
-      customer.update(credit_score: credit_score["result"])
-
+      if customer.update(credit_score: credit_score["result"])
+        render json: {status: "Success", message: "Claim created", data:customer}, status: :ok
+      end
     end
 
     def restrict_access
