@@ -107,10 +107,9 @@ class Api::V1::ClaimsController < ApplicationController
       end
       response.code
       response.body
-      byebug
       credit_score = JSON.parse(response.body)
       if customer.update(credit_score: credit_score["result"])
-        render json: {status: "Success", message: "Claim created", data:customer}, status: :ok
+        return
       end
     end
 
