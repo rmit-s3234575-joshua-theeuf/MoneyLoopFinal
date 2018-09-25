@@ -90,7 +90,7 @@ class Api::V1::ClaimsController < ApplicationController
       "device_model" => "#{customer.device_model}",
       "device_screen_resolution" => "#{customer.device_screen_resolution}",
       "network_service_provider" => "#{customer.network_service_provider}",
-      "ip_address" => "#{customer.ip_address}",
+      "ip_address" => "#{customer.ip_location}",
       "time_zone" => "#{customer.time_zone}",
       "time_of_day" => "#{customer.time_of_day}"
       })
