@@ -11,7 +11,7 @@ class Api::V1::ClaimsController < ApplicationController
 
   def show
     begin
-      claim = Claim.find_by(customer_id: params[:id])
+      claim = Claim.where(customer_id: params[:id])
       render json: {status: "Success", message: "Claim Details", data:claim}, status: :ok
     rescue ActiveRecord::RecordNotFound => e
       render json: {status: "Failed", message: "Object not found where id = #{params[:id]}"}, status: :unprocessable_entity
