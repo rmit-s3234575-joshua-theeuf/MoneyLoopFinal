@@ -4,13 +4,14 @@ class CompaniesController < ApplicationController
   end
 
   def create
+    byebug
         company = Company.new(company_params)
         if company.save
           byebug
           api_token = SecureRandom.hex(16)
           test_token = SecureRandom.hex(16)
           ApiKey.create(token: api_token, service_provider_id: company.id)
-          render json: {status: "Success", message: "Created", data:company}, status: :ok
+          render json: {status: "Success", message: "Created", data:api_token}, status: :ok
         else
           render json: {status: "failed", message: "failed to create object", data:company.errors}, status: :unprocessable_entity
         end
