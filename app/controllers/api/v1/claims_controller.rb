@@ -107,9 +107,9 @@ class Api::V1::ClaimsController < ApplicationController
       #business rules for approval and rejection
       if customer.update(credit_score: credit_score["result"])
         if credit_score['result'].to_i >= 750
-          customer.update(approved: true)
+          claim.approved = true
         else
-          customer.update(approved: false)
+          claim.update.approved = false
         end
         return
       end
