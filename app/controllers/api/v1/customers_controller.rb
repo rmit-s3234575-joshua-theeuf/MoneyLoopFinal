@@ -19,7 +19,7 @@ class Api::V1::CustomersController < ApplicationController
 
   def show
     begin
-      customer = Customer.find(params[:id]).where(company_id: params[:company_id])
+      customer = Customer.find(params[:id])
       render json: {status: "Success", message: "loaded insureance details", data:customer}, status: :ok
     rescue ActiveRecord::RecordNotFound => e
       render json: {status: "Failed", message: "Object not found where id = #{params[:id]}"}, status: :unprocessable_entity
@@ -28,7 +28,7 @@ class Api::V1::CustomersController < ApplicationController
 
   def update
     begin
-      customer = Customer.find(params[:id]).where(company_id: params[:company_id])
+      customer = Customer.find(params[:id])
       if customer.update_attributes(customer_params)
         render json: {status: "Success", message: "updated", data:customer}, status: :ok
       else
