@@ -2,7 +2,7 @@ class Api::V1::CustomersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :restrict_access
   def index
-    customer = Customer.all
+    customer = Customer.all.where(company_id: params[:company_id])
     render json: {status: "Success", message: "Customer Details", data: customer}, status: :ok
   end
 
