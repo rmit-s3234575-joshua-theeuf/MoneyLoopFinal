@@ -20,7 +20,7 @@ class CompaniesController < ApplicationController
       byebug
 
       company_id = ApiKey.find_by(company_id: params[:id])
-      company = Company.find(company_id)
+      company = Company.find(company_id.service_provider_id)
       render json: {status: "Success", message: "loaded insureance details", data:company}, status: :ok
     rescue ActiveRecord::RecordNotFound => e
       render json: {status: "Failed", message: "Object not found where id = #{params[:id]}"}, status: :unprocessable_entity
