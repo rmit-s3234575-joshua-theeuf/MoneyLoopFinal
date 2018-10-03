@@ -5,14 +5,12 @@ class Api::V1::ClaimsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :restrict_access
   def index
-    byebug
     claim = Claim.all
     render json: {status: "Success", message: "Claim Details", data: claim}, status: :ok
   end
 
   def show
     begin
-      byebug
       claim = Claim.where(customer_id: params[:id])
       render json: {status: "Success", message: "Claim Details", data:claim}, status: :ok
     rescue ActiveRecord::RecordNotFound => e
