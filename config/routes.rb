@@ -18,9 +18,9 @@ Rails.application.routes.draw do
       patch "/customers/:id(.:format)", to: 'customers#update'
       put "/customers/:id(.:format)", to: 'customers#update'
       delete "/customers/:id(.:format)", to: 'customers#destroy'
+      get "claims/:id(.format)", to: 'claims#show'
     end
   end
-  get "/claim/:id(.:format)", to: "indices#create_claim"
 
   root "indices#index"
 end
