@@ -17,8 +17,6 @@ class CompaniesController < ApplicationController
 
   def show
     begin
-      byebug
-
       company_id = ApiKey.find_by(company_id: params[:id])
       company = Company.find(company_id.service_provider_id)
       render json: {status: "Success", message: "loaded insureance details", data:company}, status: :ok
