@@ -109,7 +109,7 @@ class Api::V1::ClaimsController < ApplicationController
         if credit_score['result'].to_i >= 750
           claim.approved = true
         else
-          claim.update.approved = false
+          claim.approved = false
         end
         return
       end
