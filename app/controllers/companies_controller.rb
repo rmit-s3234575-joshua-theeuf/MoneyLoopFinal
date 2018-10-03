@@ -4,10 +4,8 @@ class CompaniesController < ApplicationController
   end
 
   def create
-    byebug
         company = Company.new(company_params)
         if company.save
-          byebug
           api_token = SecureRandom.hex(16)
           test_token = SecureRandom.hex(16)
           ApiKey.create(token: api_token, service_provider_id: company.id)
