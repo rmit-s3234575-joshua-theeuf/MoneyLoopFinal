@@ -105,6 +105,11 @@ class Api::V1::ClaimsController < ApplicationController
       response.body
       credit_score = JSON.parse(response.body)
       if customer.update(credit_score: credit_score["result"])
+        if credit_score['result'] >= 750
+          customer.update(approved: true)
+        else
+          customer.update(approved: false)
+        end
         return
       end
     end
