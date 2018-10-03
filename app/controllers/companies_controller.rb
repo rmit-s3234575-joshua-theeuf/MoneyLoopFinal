@@ -17,6 +17,7 @@ class CompaniesController < ApplicationController
 
   def show
     begin
+      byebug
       company = Company.find(params[:id])
       render json: {status: "Success", message: "loaded insureance details", data:company}, status: :ok
     rescue ActiveRecord::RecordNotFound => e

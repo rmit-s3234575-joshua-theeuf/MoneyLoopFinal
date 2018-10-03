@@ -22,5 +22,6 @@ Rails.application.routes.draw do
     end
   end
       post "companies(.:format)", to: 'companies#create'
+      get "companies/:id(.:format)", to: 'companies#show'
   root "indices#index"
 end
