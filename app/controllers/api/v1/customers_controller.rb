@@ -17,7 +17,7 @@ class Api::V1::CustomersController < ApplicationController
     if customer.save
       claim = Claim.new(:customer_id => customer.id, :company_id => customer.company_id, :exposure => customer.exposure, :date_of_origination => customer.date_of_origination)
       if claim.save
-        if calculate_credit_score(customer, claim)
+        if calculate_credit_score(customer, claim) 
         claim.save
         customer.save
         byebug
