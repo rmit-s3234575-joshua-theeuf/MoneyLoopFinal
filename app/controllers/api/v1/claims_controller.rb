@@ -19,7 +19,6 @@ class Api::V1::ClaimsController < ApplicationController
   end
 
   def create
-    byebug
     claim  = Claim.new(claims_params)
     claim.company_id = params[:company_id]
     customer = Customer.find_by(id: claims_params[:customer_id])
@@ -71,6 +70,7 @@ class Api::V1::ClaimsController < ApplicationController
 
   #this is where we will intereact with the infrenetics credit model.
   def claculate_credit_score(customer, claim)
+    byebug
     uri = URI.parse("https://api.inferentics.com/v1")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"

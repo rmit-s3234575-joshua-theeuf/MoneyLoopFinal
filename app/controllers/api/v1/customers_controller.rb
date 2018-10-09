@@ -13,10 +13,13 @@ class Api::V1::CustomersController < ApplicationController
     customer.update(dob:customer_params[:dob].to_date.strftime("%d%m%Y"))
     if customer.save
       byebug
-      Claim.create(:customer_id => customer.id, :company_id => customer.company_id, :exposure => customer.exposure, :date_of_origination => customer.date_of_origination)
-      render json: {status: "Success", message: "Created", data:customer}, status: :ok
-    else
-      render json: {status: "failed", message: "failed to create object", data:customer.errors}, status: :unprocessable_entity
+      claim = Claim.new(:customer_id => customer.id, :company_id => customer.company_id, :exposure => customer.exposure, :date_of_origination => customer.date_of_origination)
+      if claim.save
+        Claim.claculate_credit_score(customer, claim)
+        render json: {status: "Success", message: "Created", data:customer}, status: :ok
+      else
+        render json: {status: "failed", message: "failed to create object", data:customer.errors}, status: :unprocessable_entity
+      end
     end
   end
 
