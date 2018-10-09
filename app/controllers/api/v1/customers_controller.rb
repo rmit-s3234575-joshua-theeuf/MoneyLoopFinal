@@ -67,7 +67,7 @@ class Api::V1::CustomersController < ApplicationController
     end
   end
   #this is where we will intereact with the infrenetics credit model.
-  def calculate_credit_score
+  def calculate_credit_score(customer, claim)
     byebug
     uri = URI.parse("https://api.inferentics.com/v1")
     request = Net::HTTP::Post.new(uri)
