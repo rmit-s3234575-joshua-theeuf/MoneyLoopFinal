@@ -11,7 +11,7 @@ class Api::V1::CustomersController < ApplicationController
 
   def create
     customer = Customer.new(customer_params)
-
+    byebug
     #create a customer.
     customer.update(dob:customer_params[:dob].to_date.strftime("%d%m%Y"))
     if customer.save
@@ -109,7 +109,6 @@ class Api::V1::CustomersController < ApplicationController
       response.code
       response.body
       $content = {code: JSON.parse(response.code), body: JSON.parse(response.body)}
-      byebug
       if $content[:code] != 200
         return false
       end
