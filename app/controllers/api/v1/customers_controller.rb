@@ -110,8 +110,9 @@ class Api::V1::CustomersController < ApplicationController
       response.code
       response.body
       byebug
+      content = JSON.parse(response)
       if response.code != 200
-        return response
+        return $content
       end
       credit_score = JSON.parse(response.body)
       #business rules for approval and rejection
