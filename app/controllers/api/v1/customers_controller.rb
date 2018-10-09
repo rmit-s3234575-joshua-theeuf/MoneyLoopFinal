@@ -113,10 +113,12 @@ class Api::V1::CustomersController < ApplicationController
         customer.save
         if credit_score['result'].to_i >= 750
           claim.approved = true
-          claim.save
+          customer.approved = true
+          claim.credit_score = credit_score['result']
         else
           claim.approved = false
-          claim.save
+          customer.approved = true
+          claim.credit_score = credit_score['result']
         end
         return
       end
