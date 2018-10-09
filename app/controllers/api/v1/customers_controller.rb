@@ -23,7 +23,7 @@ class Api::V1::CustomersController < ApplicationController
         byebug
         render json: {status: "Success", message: "Created", data:{"claim": claim, "customer":customer}}, status: :ok
       else
-        render json: {status: "failed", message: "Couldnt create claim", data: response.body}, status: :unprocessable_entity
+        render json: {status: "Failed", message: "Failed to generate claim and customer. See json body for error message. ", data: $content[:body]}, status: :unprocessable_entity
       end
       else
         render json: {status: "failed", message: "failed to create object", data:customer.errors}, status: :unprocessable_entity
