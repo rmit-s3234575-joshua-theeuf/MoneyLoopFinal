@@ -20,7 +20,7 @@ class Api::V1::CustomersController < ApplicationController
       if claim.save
         calculate_credit_score(customer, claim)
         claim.save
-        render json: {status: "Success", message: "Created", data:customer}, status: :ok
+        render json: {status: "Success", message: "Created", data:{"claim": claim, "customer":customer}}, status: :ok
       else
         render json: {status: "failed", message: "failed to create object", data:customer.errors}, status: :unprocessable_entity
       end
