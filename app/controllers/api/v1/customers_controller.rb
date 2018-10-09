@@ -109,6 +109,7 @@ class Api::V1::CustomersController < ApplicationController
       end
       response.code
       response.body
+      byebug
       if response.code != 200
         return response
       end
