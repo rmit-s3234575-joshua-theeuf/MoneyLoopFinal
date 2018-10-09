@@ -20,7 +20,6 @@ class Api::V1::CustomersController < ApplicationController
         if calculate_credit_score(customer, claim)
         claim.save
         customer.save
-        byebug
         render json: {status: "Success", message: "Created", data:{"claim": claim, "customer":customer}}, status: :ok
       else
         render json: {status: "Failed", message: "Failed to generate claim and customer. See json body for error message. ", data: $content[:body]}, status: :unprocessable_entity
@@ -109,7 +108,6 @@ class Api::V1::CustomersController < ApplicationController
       end
       response.code
       response.body
-      byebug
       $content = {code: JSON.parse(response.code), body: JSON.parse(response.body)}
       if $content[:code] != 200
         return false
@@ -117,7 +115,6 @@ class Api::V1::CustomersController < ApplicationController
       credit_score = JSON.parse(response.body)
       #business rules for approval and rejection
       if customer.update(credit_score: credit_score["result"])
-        byebug
         customer.save
         if credit_score['result'].to_i >= 750
           claim.approved = true
