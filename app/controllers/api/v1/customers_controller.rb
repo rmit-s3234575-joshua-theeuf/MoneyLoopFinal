@@ -126,7 +126,7 @@ class Api::V1::CustomersController < ApplicationController
           customer.approved = true
           claim.credit_score = credit_score['result']
         end
-        return
+        return true
       end
     end
   end
