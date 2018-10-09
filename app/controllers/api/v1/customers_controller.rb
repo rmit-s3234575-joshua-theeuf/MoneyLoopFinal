@@ -17,7 +17,7 @@ class Api::V1::CustomersController < ApplicationController
     if customer.save
       claim = Claim.new(:customer_id => customer.id, :company_id => customer.company_id, :exposure => customer.exposure, :date_of_origination => customer.date_of_origination)
       if claim.save
-        if calculate_credit_score(customer, claim) 
+        if calculate_credit_score(customer, claim)
         claim.save
         customer.save
         byebug
@@ -110,9 +110,10 @@ class Api::V1::CustomersController < ApplicationController
       response.code
       response.body
       byebug
-      content = JSON.parse(response)
-      if response.code != 200
-        return $content
+      $content['code'] = JSON.parse(response.code)
+      $content['body'] = JSON.parse(response.body)
+      if content['code'] != 200
+        return false
       end
       credit_score = JSON.parse(response.body)
       #business rules for approval and rejection
