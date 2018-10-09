@@ -17,11 +17,14 @@ class Api::V1::CustomersController < ApplicationController
     if customer.save
       claim = Claim.new(:customer_id => customer.id, :company_id => customer.company_id, :exposure => customer.exposure, :date_of_origination => customer.date_of_origination)
       if claim.save
-        calculate_credit_score(customer, claim)
+        if calculate_credit_score(customer, claim)
         claim.save
         customer.save
         byebug
         render json: {status: "Success", message: "Created", data:{"claim": claim, "customer":customer}}, status: :ok
+      else
+        render json: {status: "failed", message: "Couldnt create claim", data: {response.body}}, status: :unprocessable_entity
+      end
       else
         render json: {status: "failed", message: "failed to create object", data:customer.errors}, status: :unprocessable_entity
       end
@@ -106,6 +109,9 @@ class Api::V1::CustomersController < ApplicationController
       end
       response.code
       response.body
+      if response.code != 200
+        return response
+      end
       credit_score = JSON.parse(response.body)
       #business rules for approval and rejection
       if customer.update(credit_score: credit_score["result"])
