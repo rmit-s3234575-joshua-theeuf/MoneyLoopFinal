@@ -110,9 +110,9 @@ class Api::V1::CustomersController < ApplicationController
       response.code
       response.body
       byebug
-      $content['code'] = JSON.parse(response.code)
-      $content['body'] = JSON.parse(response.body)
-      if content['code'] != 200
+      $content[:code] = JSON.parse(response.code)
+      $content[:body] = JSON.parse(response.body)
+      if content[:code] != 200
         return false
       end
       credit_score = JSON.parse(response.body)
