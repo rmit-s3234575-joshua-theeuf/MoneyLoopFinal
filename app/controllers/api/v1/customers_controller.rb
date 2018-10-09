@@ -1,4 +1,7 @@
 class Api::V1::CustomersController < ApplicationController
+  require 'net/http'
+  require 'uri'
+  require 'json'
   skip_before_action :verify_authenticity_token
   before_action :restrict_access
   def index
