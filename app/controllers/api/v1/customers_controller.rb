@@ -27,6 +27,8 @@ class Api::V1::CustomersController < ApplicationController
       else
         render json: {status: "failed", message: "failed to create object", data:customer.errors}, status: :unprocessable_entity
       end
+    else
+      render json: {status: "failed", message: "failed to create object", data:customer.errors}, status: :unprocessable_entity
     end
   end
 
