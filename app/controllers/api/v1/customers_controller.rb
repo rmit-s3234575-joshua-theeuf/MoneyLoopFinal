@@ -17,6 +17,7 @@ class Api::V1::CustomersController < ApplicationController
   def create
     customer = Customer.new(customer_params)
     #create a customer.
+    byebug
     customer[:dob] = customer_params[:dob].to_date.strftime("%d%m%Y")
     if customer.save
       claim = Claim.new(:customer_id => customer.id, :company_id => customer.company_id, :exposure => customer.exposure, :date_of_origination => customer.date_of_origination)
