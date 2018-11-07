@@ -75,6 +75,7 @@ class Api::V1::CustomersController < ApplicationController
     params.permit(:given_names, :surname, :email, :phone_mobile, :phone_home,:dob, :address, :employer_name, :job_title, :device_type, :device_os, :device_model, :device_screen_resolution, :ip_location,:network_service_provider, :time_zone, :time_of_day, :company_id, :approved, :exposure, :date_of_origination)
   end
   def restrict_access
+    byebug
     authenticate_or_request_with_http_token do |token, options|
       if ApiKey.exists?(:token => "#{token}")
         params[:company_id] = ApiKey.find_by(:token => "#{token}").service_provider_id
