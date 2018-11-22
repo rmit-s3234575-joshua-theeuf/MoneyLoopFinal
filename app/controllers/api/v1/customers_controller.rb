@@ -105,7 +105,7 @@ class Api::V1::CustomersController < ApplicationController
       "time_zone" => "#{customer.time_zone}",
       "time_of_day" => "#{customer.time_of_day}"
       })
-
+#	byebug
       req_options = {
         use_ssl: uri.scheme == "https",
       }
