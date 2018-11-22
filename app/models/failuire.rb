@@ -1,0 +1,2 @@
+class Failuire < ApplicationRecord
+end

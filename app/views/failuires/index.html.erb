@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Failuires</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @failuires.each do |failuire| %>
+      <tr>
+        <td><%= link_to 'Show', failuire %></td>
+        <td><%= link_to 'Edit', edit_failuire_path(failuire) %></td>
+        <td><%= link_to 'Destroy', failuire, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Failuire', new_failuire_path %>
