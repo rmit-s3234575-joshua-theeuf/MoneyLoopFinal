@@ -77,7 +77,6 @@ class Api::V1::ClaimsController < ApplicationController
   public
   #this is where we will intereact with the infrenetics credit model.
   def claculate_credit_score(customer, claim)
-    byebug
     uri = URI.parse("https://api.inferentics.com/v1")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
